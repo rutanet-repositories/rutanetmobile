@@ -1,0 +1,52 @@
+<div id="pageTitle">
+	<h1><%= @freight.category.capitalize %></h1>
+</div>
+
+<div id="toolbar">
+    <div id="leftItem" class="backButton"><%= link_to "Atras", :action => :index %></div>
+</div>
+
+<div id="content">
+    <ul>
+        
+        <li>
+            <div class="itemLabel">Origen</div>
+            <div class="itemValue"><%= format_city @freight.origin_name %></div>
+        </li>
+
+		<li>
+            <div class="itemLabel">Destino</div>
+            <div class="itemValue"><%= format_city @freight.destination_name %></div>
+        </li>
+
+		<li>
+            <div class="itemLabel">Fecha de salida</div>
+            <div class="itemValue"><%= format_date @freight.date_departure %></div>
+        </li>
+
+		<% unless @freight.date_arrival.empty? %>
+			<li>
+	            <div class="itemLabel">Fecha de llegada</div>
+	            <div class="itemValue"><%= format_date @freight.date_arrival %></div>
+	        </li>
+		<% end %>
+
+		<li>
+            <div class="itemLabel">Peso</div>
+            <div class="itemValue"><%= @freight.weight %> <%= @freight.weight_unit %></div>
+        </li>
+		<% unless @freight.price.empty? %>
+			<li>
+	            <div class="itemLabel">Precio estimado</div>
+	            <div class="itemValue"><%= @freight.price %> <%=  @freight.price_currency %></div>
+	        </li>
+		<% end %>
+		<% unless @freight.comments.empty? %>
+			<li>
+	            <div class="itemLabel">Comentarios</div>
+	            <div class="itemValue"><%= @freight.comments %></div>
+	        </li>
+		<% end %>
+        
+    </ul>
+</div>

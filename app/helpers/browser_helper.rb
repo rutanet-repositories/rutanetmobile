@@ -1,4 +1,16 @@
 module BrowserHelper
+  
+  def format_city(str)
+    city, state = str.split(',')
+    city.capitalize!
+    state.upcase!
+    "#{city}, #{state}"
+  end
+  
+  def format_date(str)
+    year, month, day = str.split('/')
+    "#{day}/#{month}/#{year}"
+  end
 
   def placeholder(label=nil)
     "placeholder='#{label}'" if platform == 'apple'

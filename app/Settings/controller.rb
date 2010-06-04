@@ -13,46 +13,47 @@ class SettingsController < Rho::RhoController
 
   def login
     @msg = @params['msg']
-    render :action => :login, :back => '/app'
+    if User.find(:first)
+      WebView.navigate url_for(:controller => :Freight, :action => :search)
+    else
+      render :action => :login, :back => '/app'
+    end
   end
 
   def login_callback
     errCode = @params['error_code'].to_i
     if errCode == 0
-      # run sync if we were successful
-      WebView.navigate Rho::RhoConfig.options_path
-      SyncEngine.dosync
+      puts "This are the params #{@params.inspect}"
+      current_user = User.find(:first) || User.new
+      current_user.cookie = @params["cookies"]
+      current_user.save
+      WebView.navigate ( url_for :controller => :Freight, :action => :search )
     else
-      if errCode == Rho::RhoError::ERR_CUSTOMSYNCSERVER
-        @msg = @params['error_message']
-      end
-        
-      if !@msg || @msg.length == 0   
-        @msg = Rho::RhoError.new(errCode).message
-      end
-      
-      WebView.navigate ( url_for :action => :login, :query => {:msg => @msg} )
+      WebView.navigate ( url_for :action => :login, :query => {:msg => true} )
     end  
   end
 
   def do_login
     if @params['login'] and @params['password']
       begin
-        SyncEngine.login(@params['login'], @params['password'], (url_for :action => :login_callback) )
+        Rho::AsyncHttp.post(
+          :url => 'http://rutanet.local/signin/signin.json',
+          :body => "email=#{@params['login']}&password=#{@params['password']}",
+          :callback => '/app/Settings/login_callback')
         render :action => :wait
       rescue Rho::RhoError => e
         @msg = e.message
         render :action => :login
       end
     else
-      @msg = Rho::RhoError.err_message(Rho::RhoError::ERR_UNATHORIZED) unless @msg && @msg.length > 0
       render :action => :login
     end
   end
   
   def logout
-    SyncEngine.logout
-    @msg = "You have been logged out."
+    current_user = User.find(:first)
+    current_user.destroy
+    @msg = false
     render :action => :login
   end
   

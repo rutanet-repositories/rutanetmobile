@@ -1,0 +1,29 @@
+<div id="pageTitle">
+	<h1>Cargas</h1>
+</div>
+
+<div id="toolbar">
+    <div id="leftItem" class="regularButton"><%= link_to "Back", url_for(:controller => 'Freight', :action => 'search') %></div>
+</div>
+
+<div id="content">
+    <ul>
+        <% @freights.each do |freight| %>
+	       <li>
+	           <a href="<%= url_for :action => :show, :id => freight.object %>">
+				<div class='freight_info'>
+					 <span class="title">
+						<%= format_city freight.origin_name.capitalize %> -> <%= format_city freight.destination_name.capitalize %>
+					</span>
+					<span class="subtitle">
+						<strong><%= format_date freight.date_departure %></strong> &nbsp;
+						<%= freight.category.capitalize %> &nbsp; 
+						<%= freight.weight %> <%= freight.weight_unit %> 
+					</span>
+				</div>
+				<span class="disclosure_indicator"></span>
+	           </a>
+	       </li>
+        <% end %>
+    </ul>
+</div>

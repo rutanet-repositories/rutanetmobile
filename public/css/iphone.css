@@ -178,11 +178,28 @@ div#content ul li a:hover {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(5, 140, 245)), to(rgb(1, 95, 230)));
 }
 
+div#content ul li div.freight_info {
+	display:block;
+	float:left;
+	width:270px;
+}
+
 div#content ul li span.title {
     padding: 0 10px 0 10px;
-    font-size: 20px;
-		font-weight: bold;
-		display: inline;
+    font-size: 16px;
+	font-weight: bold;
+	display: block;
+	overflow:auto;
+	overflow-x:hidden;
+	white-space:nowrap;
+}
+
+div#content ul li span.subtitle {
+    padding: 0 10px 0 10px;
+    font-size: 12px;
+	font-weight: normal;
+	display: block;
+	margin:5px 0px;
 }
 
 div#content ul li div.itemLabel {
@@ -203,7 +220,7 @@ div#content ul li a span.disclosure_indicator {
     width: 35px;
     float: right;
     margin-right: 10px;
-		display: inline;
+	display: inline;
 }
 
 div#content ul li a span.detail_disclosure {
@@ -328,7 +345,7 @@ div#content form input[type="radio"]:checked {
 div#content form select {
   	background: url('/public/images/iphone/select.png') no-repeat right;
     border: 0px;
-		width:100%;
+	width:100%;
 }
 
 div#content form textarea {
