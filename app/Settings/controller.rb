@@ -2,6 +2,7 @@ require 'rho'
 require 'rho/rhocontroller'
 require 'rho/rhoerror'
 require 'helpers/browser_helper'
+require 'application'
 
 class SettingsController < Rho::RhoController
   include BrowserHelper
@@ -23,10 +24,10 @@ class SettingsController < Rho::RhoController
   def login_callback
     errCode = @params['error_code'].to_i
     if errCode == 0
-      puts "This are the params #{@params.inspect}"
       current_user = User.find(:first) || User.new
       current_user.cookie = @params["cookies"]
       current_user.save
+      NativeBar.create(AppApplication::TABBAR_TYPE, AppApplication::TABS)
       WebView.navigate ( url_for :controller => :Freight, :action => :search )
     else
       WebView.navigate ( url_for :action => :login, :query => {:msg => true} )
@@ -52,9 +53,10 @@ class SettingsController < Rho::RhoController
   
   def logout
     current_user = User.find(:first)
-    current_user.destroy
+    current_user.destroy unless current_user.nil?
     @msg = false
-    render :action => :login
+    NativeBar.remove
+    WebView.navigate url_for(:controller => :Settings, :action => :login)
   end
   
   def reset
