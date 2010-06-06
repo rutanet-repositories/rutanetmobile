@@ -10,7 +10,6 @@
     <ul>
         <% @freights.each do |freight| %>
 	       <li>
-				<% puts "WHAT THE FUCKKKKKKKK" + (url_for :action => :show, :id => freight.object) %>
 	           <a href="<%= url_for :action => :show, :id => freight.object %>">
 				<div class='freight_info'>
 					 <span class="title">
