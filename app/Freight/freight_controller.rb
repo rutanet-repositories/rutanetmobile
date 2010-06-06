@@ -13,6 +13,7 @@ class FreightController < Rho::RhoController
 
   # GET /Freight/{1}
   def show
+    puts 'entrando a show'
     @freight = Freight.find(@params['id'])
     if @freight
       render :action => :show

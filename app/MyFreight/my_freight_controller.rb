@@ -8,11 +8,17 @@ class MyFreightController < Rho::RhoController
   #GET /MyFreight
   def index
     @just_bought = @params["just_bought"] 
-    @freights = MyFreight.find(:all)
-    if @freights.empty?
-      WebView.navigate(url_for(:controller => :MyFreight, :action => :do_search))
+    #Very hacky but we cant WebView.navigate to show a freight
+    if @just_bought
+      @freight = MyFreight.find(:all).last()
+      render :action => :show
     else
-      render
+      @freights = MyFreight.find(:all)
+      if @freights.empty?
+        WebView.navigate(url_for(:controller => :MyFreight, :action => :do_search))
+      else
+        render
+      end
     end
   end
 
