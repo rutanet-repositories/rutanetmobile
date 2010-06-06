@@ -1,0 +1,21 @@
+<div id="pageTitle">
+	<h1><%= @freight.origin:string%></h1>
+</div>
+
+<div id="toolbar">
+        <%= link_to "Back", :action => :index %>
+        <%= link_to "Edit", :action => :edit, :id => @freight.object %>
+</div>
+
+
+<div id="content">
+
+    <table>
+      
+      <tr>
+    	<td class="itemLabel">Origin:string</td>
+        <td class="itemValue"><%= @freight.origin:string%></td>
+      </tr>
+      
+    </table>
+</div>

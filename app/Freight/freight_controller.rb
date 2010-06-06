@@ -32,7 +32,7 @@ class FreightController < Rho::RhoController
         :body => "search_freight[origin]=#{@params['origin']}&search_freight[destination]=#{@params['destination']}&search_freight[finish]=#{@params['finish']}",
         :headers => {'Cookie' => User.find(:first).cookie },
         :callback => '/app/Freight/search_callback')
-      render :controller => :Settings, :action => :wait
+      render :action => :wait
     rescue Rho::RhoError => e
       @msg = e.message
       render :action => :login
@@ -46,6 +46,21 @@ class FreightController < Rho::RhoController
         freight.save
       end
       WebView.navigate(url_for :controller => :Freight, :action => :index )
+  end
+  
+  def buy_contact
+    Rho::AsyncHttp.post(
+      :url => "http://rutanet.local/freights/#{@params['offer_id']}/tickets.json",
+      :headers => {'Cookie' => User.find(:first).cookie },
+      :callback => '/app/Freight/buy_contact_callback')
+    render :action => :wait
+  end
+  
+  def buy_contact_callback
+    bought_freight = MyFreight.new(@params['body'])
+    bought_freight.save if MyFreight.find(:all, :conditions => {:id => bought_freight.id}).empty?
+    WebView.navigate url_for(:controller => :MyFreight, :action => :index, 
+                                                        :query => {:just_bought =>true})
   end
 
   # POST /Freight/{1}/delete

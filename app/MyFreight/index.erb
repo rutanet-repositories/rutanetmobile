@@ -1,16 +1,21 @@
 <div id="pageTitle">
-	<h1>Cargas</h1>
+	<h1>Mis Cargas</h1>
 </div>
 
 <div id="toolbar">
-    <div id="leftItem" class="regularButton"><%= link_to "Back", url_for(:controller => 'Freight', :action => 'search') %></div>
+	<div id="rightItem" class="regularButton">
+		<%= link_to "Recargar", url_for(:controller => 'MyFreight', :action => 'do_search') %>
+	</div>
 </div>
 
 <div id="content">
-    <ul>
+	<% if @just_bought %>
+		<p style='color:green'>Tu compra se realiz&oacute; con &eacute;xito!</p>
+	<% end %>
+	<ul>
+		<% unless @freights.nil? %>
         <% @freights.each do |freight| %>
 	       <li>
-				<% puts "WHAT THE FUCKKKKKKKK" + (url_for :action => :show, :id => freight.object) %>
 	           <a href="<%= url_for :action => :show, :id => freight.object %>">
 				<div class='freight_info'>
 					 <span class="title">
@@ -26,5 +31,6 @@
 	           </a>
 	       </li>
         <% end %>
+		<% end %>
     </ul>
 </div>

@@ -8,7 +8,6 @@
 
 <div id="content">
     <ul>
-        
         <li>
             <div class="itemLabel">Origen</div>
             <div class="itemValue"><%= format_city @freight.origin_name %></div>
@@ -47,11 +46,29 @@
 	            <div class="itemValue"><%= @freight.comments %></div>
 	        </li>
 		<% end %>
-		
-		<form method="POST" action="<%= url_for :action => :buy_contact %>">
-			<input type="hidden" name="offer_id" value="<%= @freight.id %>" />
-			<input type="submit" class="standardButton" value="Comprar contacto" />
-		</form>
-        
     </ul>
+	
+	<strong>Informaci&oacute;n del contacto</strong>
+	
+	<ul>
+		<li>
+            <div class="itemLabel">Nombre Completo</div>
+            <div class="itemValue"><%= @freight.owner_full_name %></div>
+        </li>
+		<% unless @freight.owner_cell_phone_number.empty? %>
+			<li>
+	            <div class="itemLabel">Celular</div>
+	            <div class="itemValue"><%= @freight.owner_cell_phone_number %></div>
+	        </li>
+		<% end %>
+		<li>
+            <div class="itemLabel">Tel&eacute;fono</div>
+            <div class="itemValue"><%= @freight.owner_phone %></div>
+        </li>
+		<li>
+            <div class="itemLabel">Correo electr&oacute;nico</div>
+            <div class="itemValue"><%= @freight.owner_email %></div>
+        </li>
+	</ul>
+
 </div>
