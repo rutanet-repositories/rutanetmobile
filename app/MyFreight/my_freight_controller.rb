@@ -15,7 +15,8 @@ class MyFreightController < Rho::RhoController
     else
       @msg = @params['message']
       @freights = MyFreight.find(:all)
-      if @freights.empty?
+      @nofreights = @params['nofreights']
+      if @freights.empty? and !@nofreights
         WebView.navigate(url_for(:controller => :MyFreight, :action => :do_search))
       else
         render
@@ -53,7 +54,8 @@ class MyFreightController < Rho::RhoController
         freight = MyFreight.new(attributes)
         freight.save
       end
-      WebView.navigate (url_for :controller => :MyFreight, :action => :index)
+      WebView.navigate (url_for :controller => :MyFreight, :action => :index, 
+                                                            :query => {:nofreights => MyFreight.find(:all).empty?})
     else
       error_message = error_messages(@params['http_error'])
       WebView.navigate ( url_for :action => :index, :query => {:message => error_message} )
