@@ -28,6 +28,7 @@ class FreightController < Rho::RhoController
   end
   
   def do_search
+    puts "AHHHHRG" + @params
     Rho::AsyncHttp.post(
       :url => 'http://rutanet.local/search_freights.json',
       :body => "search_freight[origin]=#{@params['origin']}&search_freight[destination]=#{@params['destination']}&search_freight[finish]=#{@params['finish']}&per_page=10",
