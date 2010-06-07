@@ -63,11 +63,4 @@ class FreightController < Rho::RhoController
     WebView.navigate url_for(:controller => :MyFreight, :action => :index, 
                                                         :query => {:just_bought =>true})
   end
-
-  # POST /Freight/{1}/delete
-  def delete
-    @freight = Freight.find(@params['id'])
-    @freight.destroy if @freight
-    redirect :action => :index
-  end
 end
