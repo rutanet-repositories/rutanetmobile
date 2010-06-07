@@ -30,7 +30,7 @@ class FreightController < Rho::RhoController
   def do_search
     Rho::AsyncHttp.post(
       :url => 'http://rutanet.local/search_freights.json',
-      :body => "search_freight[origin]=#{@params['origin']}&search_freight[destination]=#{@params['destination']}&search_freight[finish]=#{@params['finish']}",
+      :body => "search_freight[origin]=#{@params['origin']}&search_freight[destination]=#{@params['destination']}&search_freight[finish]=#{@params['finish']}&per_page=10",
       :headers => {'Cookie' => User.find(:first).cookie },
       :callback => '/app/Freight/search_callback')
     render :action => :wait
