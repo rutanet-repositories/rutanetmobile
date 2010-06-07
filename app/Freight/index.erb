@@ -7,6 +7,11 @@
 </div>
 
 <div id="content">
+
+	<% if @msg %>
+        <p style="color:#ff0000"><%= verbose_error_message(@msg) %></p>
+    <% end %>
+
     <ul>
         <% @freights.each do |freight| %>
 	       <li>

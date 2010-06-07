@@ -10,8 +10,9 @@
     <form method="POST" action="<%= url_for :action => :do_login %>">
 
         <% if @msg %>
-            <p style="color:#ff0000">Tus datos de acceso son inv&aacute;lidos</p>
+            <p style="color:#ff0000"><%= verbose_error_message(@msg) %></p>
         <% end %>
+
         <ul>
             <li>
                 <label for="login" class="fieldLabel">Correo electr&oacute;nico</label>

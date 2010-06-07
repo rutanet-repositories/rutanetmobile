@@ -13,7 +13,7 @@ class SettingsController < Rho::RhoController
   end
 
   def login
-    @msg = @params['msg']
+    @msg = @params['message']
     if User.find(:first)
       WebView.navigate url_for(:controller => :Freight, :action => :search)
     else
@@ -31,23 +31,20 @@ class SettingsController < Rho::RhoController
       current_user.save
       WebView.navigate ( url_for :controller => :Freight, :action => :search )
     else
-      WebView.navigate ( url_for :action => :login, :query => {:msg => true} )
+      error_message = error_messages(@params['http_error'])
+      WebView.navigate ( url_for :action => :login, :query => {:message => error_message} )
     end  
   end
 
   def do_login
     if @params['login'] and @params['password']
-      begin
-        Rho::AsyncHttp.post(
-          :url => 'http://rutanet.local/signin/signin.json',
-          :body => "email=#{@params['login']}&password=#{@params['password']}",
-          :callback => '/app/Settings/login_callback')
-        render :action => :wait
-      rescue Rho::RhoError => e
-        @msg = e.message
-        render :action => :login
-      end
+      Rho::AsyncHttp.post(
+        :url => 'http://rutanet.local/signin/signin.json',
+        :body => "email=#{@params['login']}&password=#{@params['password']}",
+        :callback => '/app/Settings/login_callback')
+      render :action => :wait
     else
+      @msg = 'wronglogin'
       render :action => :login
     end
   end

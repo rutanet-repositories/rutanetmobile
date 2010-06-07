@@ -13,6 +13,7 @@ class MyFreightController < Rho::RhoController
       @freight = MyFreight.find(:all).last()
       render :action => :show
     else
+      @msg = @params['message']
       @freights = MyFreight.find(:all)
       if @freights.empty?
         WebView.navigate(url_for(:controller => :MyFreight, :action => :do_search))
@@ -37,27 +38,26 @@ class MyFreightController < Rho::RhoController
   end
   
   def do_search
-    begin
-      Rho::AsyncHttp.get(
-        :url => 'http://rutanet.local/tickets.json',
-        :headers => {'Cookie' => User.find(:first).cookie },
-        :callback => '/app/MyFreight/search_callback')
-      render :action => :wait
-    rescue Rho::RhoError => e
-      @msg = e.message
-      render :action => :login
-    end
+    Rho::AsyncHttp.get(
+      :url => 'http://rutanet.local/tickets.json',
+      :headers => {'Cookie' => User.find(:first).cookie },
+      :callback => '/app/MyFreight/search_callback')
+    render :action => :wait
   end
   
   def search_callback
-      Rho::AsyncHttp.cancel
+    errCode = @params['error_code'].to_i
+    if errCode == 0
       MyFreight.delete_all
-      puts "AAAAAAAAAAH#{@params.inspect}"
       @params['body'].each do |attributes|
         freight = MyFreight.new(attributes)
         freight.save
       end
       WebView.navigate (url_for :controller => :MyFreight, :action => :index)
+    else
+      error_message = error_messages(@params['http_error'])
+      WebView.navigate ( url_for :action => :index, :query => {:message => error_message} )
+    end
   end
 
   # POST /MyFreight/{1}/delete

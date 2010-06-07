@@ -1,5 +1,19 @@
 module BrowserHelper
   
+  def error_messages(code)
+    return case code
+      when '401' then 'wronglogin'
+      when '403' then 'restrictedaccess'
+      else 'failedconnection' 
+    end
+  end
+  
+  def verbose_error_message(msg)
+    return 'Tus datos de acceso son inv&aacute;lidos' if msg == 'wronglogin'
+    return 'No tienes permitida esta acci&oacute;n en Rutanet' if msg == 'restrictedaccess'
+    return 'La conecci&oacute;n con Rutanet ha fallado'
+  end
+  
   def format_city(str)
     city, state = str.split(',')
     city.capitalize!

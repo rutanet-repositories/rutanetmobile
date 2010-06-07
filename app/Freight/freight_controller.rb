@@ -7,6 +7,7 @@ class FreightController < Rho::RhoController
 
   #GET /Freight
   def index
+    @msg = @params['message']
     @freights = Freight.find(:all)
     render
   end
@@ -27,26 +28,27 @@ class FreightController < Rho::RhoController
   end
   
   def do_search
-    begin
-      Rho::AsyncHttp.post(
-        :url => 'http://rutanet.local/search_freights.json',
-        :body => "search_freight[origin]=#{@params['origin']}&search_freight[destination]=#{@params['destination']}&search_freight[finish]=#{@params['finish']}",
-        :headers => {'Cookie' => User.find(:first).cookie },
-        :callback => '/app/Freight/search_callback')
-      render :action => :wait
-    rescue Rho::RhoError => e
-      @msg = e.message
-      render :action => :login
-    end
+    Rho::AsyncHttp.post(
+      :url => 'http://rutanet.local/search_freights.json',
+      :body => "search_freight[origin]=#{@params['origin']}&search_freight[destination]=#{@params['destination']}&search_freight[finish]=#{@params['finish']}",
+      :headers => {'Cookie' => User.find(:first).cookie },
+      :callback => '/app/Freight/search_callback')
+    render :action => :wait
   end
   
   def search_callback
+    errCode = @params['error_code'].to_i
+    if errCode == 0
       Freight.delete_all
       @params['body'].each do |attributes|
         freight = Freight.new(attributes)
         freight.save
       end
       WebView.navigate(url_for :controller => :Freight, :action => :index )
+    else
+      error_message = error_messages(@params['http_error'])
+      WebView.navigate ( url_for :action => :index, :query => {:message => error_message} )
+    end
   end
   
   def buy_contact
@@ -58,9 +60,15 @@ class FreightController < Rho::RhoController
   end
   
   def buy_contact_callback
-    bought_freight = MyFreight.new(@params['body'])
-    bought_freight.save if MyFreight.find(:all, :conditions => {:id => bought_freight.id}).empty?
-    WebView.navigate url_for(:controller => :MyFreight, :action => :index, 
-                                                        :query => {:just_bought =>true})
+    errCode = @params['error_code'].to_i
+    if errCode == 0
+      bought_freight = MyFreight.new(@params['body'])
+      bought_freight.save if MyFreight.find(:all, :conditions => {:id => bought_freight.id}).empty?
+      WebView.navigate url_for(:controller => :MyFreight, :action => :index, 
+                                                          :query => {:just_bought =>true})
+    else
+      error_message = error_messages(@params['http_error'])
+      WebView.navigate ( url_for :action => :index, :query => {:message => error_message} )
+    end
   end
 end
