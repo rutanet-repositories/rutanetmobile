@@ -3,7 +3,7 @@
 </div>
 
 <div id="toolbar">
-	
+
 </div>
 
 
@@ -12,15 +12,15 @@
 	    <ul>
 	        <li>
 				<label for="origin" class="fieldLabel">Origen</label>	
-	        	<input type="text" name="origin" <%= placeholder( "Origen" ) %> />
+	        	<input type="text" name="search[origin]" <%= placeholder( "Origen" ) %> />
 	      	</li>
 			<li>
 				<label for="destination" class="fieldLabel">Destino</label>	
-	        	<input type="text" name="destination" <%= placeholder( "Destino" ) %> />
+	        	<input type="text" name="search[destination]" <%= placeholder( "Destino" ) %> />
 	      	</li>
 	
 			<li>
-	        	<select name="finish">
+	        	<select name="search[finish]">
 					<option>Fecha de salida</option>
 					<option value="<%= Date.today.to_s %>">Hoy</option>
 					<option value="<%= (Date.today + 1).to_s%>">Ma&ntilde;ana</option>
@@ -28,6 +28,20 @@
 					<option value="<%= (Date.today + 30).to_s %>">En este mes</option>
 				</select>
 	      	</li>
+	
+			<li>
+	        	<select name="search[maximum_weight]">
+					<option value="120">Peso (Tn)</option>
+					<option value="1">Menos de 1</option>
+					<option value="10">Menos de 10</option>
+					<option value="20">Menos de 20</option>
+					<option value="30">Menos de 30</option>
+					<option value="40">Menos de 40</option>
+					<option value="120">Mas de 40</option>
+				</select>
+	      	</li>
+	
+			<input type="hidden" name="search[page]" value="1" />
 		</ul>
 		<input type="submit" class="standardButton" value="Buscar" />
 	</form>

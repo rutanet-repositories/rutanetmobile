@@ -4,6 +4,9 @@
 
 <div id="toolbar">
     <div id="leftItem" class="regularButton"><%= link_to "Back", url_for(:controller => 'Freight', :action => 'search') %></div>
+	<div id="rightItem" class="regularButton">
+		<%= link_to "Recargar", url_for(:controller => 'Freight', :action => 'do_search') %>
+	</div>
 </div>
 
 <div id="content">
@@ -30,5 +33,17 @@
 	           </a>
 	       </li>
         <% end %>
+		<% unless @no_more_freights %>
+			<li>
+				   <a href="<%= url_for :action => :do_search, :query => {:page => (@search.page.to_i + 1)} %>">
+					<div class='freight_info'>
+						 <span class="title">
+							M&aacute;s cargas...
+						</span>
+					</div>
+		           </a>
+			</li>
+		<% end %>
+
     </ul>
 </div>
