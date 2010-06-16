@@ -3,77 +3,80 @@
 </div>
 
 <div id="toolbar">
-    <div id="leftItem" class="backButton"><%= link_to "Atras", :action => :index %></div>
+     <div id="leftItem" class="regularButton"><%= link_to "Atras", :action => :index %></div>
 </div>
 
 <div id="content">
 	
 	<% if @just_bought %>
-		<p style='color:green'>Tu compra se realiz&oacute; con &eacute;xito!</p>
+		<div id='app_message'>
+			Tu compra se realiz&oacute; con &eacute;xito!
+		</div>
 	<% end %>
 	
-    <ul>
-        <li>
-            <div class="itemLabel">Origen</div>
-            <div class="itemValue"><%= format_city @freight.origin_name %></div>
-        </li>
-
-		<li>
-            <div class="itemLabel">Destino</div>
-            <div class="itemValue"><%= format_city @freight.destination_name %></div>
-        </li>
-
-		<li>
-            <div class="itemLabel">Fecha de salida</div>
-            <div class="itemValue"><%= format_date @freight.date_departure %></div>
-        </li>
-
-		<% unless @freight.date_arrival.empty? %>
+	<div id="information">
+		<ul>
 			<li>
-	            <div class="itemLabel">Fecha de llegada</div>
-	            <div class="itemValue"><%= format_date @freight.date_arrival %></div>
+	            <div class="itemLabel">Nombre del contacto</div>
+	            <div class="itemValue"><%= @freight.owner_full_name %></div>
 	        </li>
-		<% end %>
-
-		<li>
-            <div class="itemLabel">Peso</div>
-            <div class="itemValue"><%= @freight.weight %> <%= @freight.weight_unit %></div>
-        </li>
-		<% unless @freight.price.empty? %>
+			<% unless @freight.owner_cell_phone_number.empty? %>
+				<li>
+		            <div class="itemLabel">Celular</div>
+		            <div class="itemValue"><%= @freight.owner_cell_phone_number %></div>
+		        </li>
+			<% end %>
 			<li>
-	            <div class="itemLabel">Precio estimado</div>
-	            <div class="itemValue"><%= @freight.price %> <%=  @freight.price_currency %></div>
+	            <div class="itemLabel" style='margin-top:15px;'>Tel&eacute;fono</div>
+	            <div class="itemValue" ><%= @freight.owner_phone %></div>
 	        </li>
-		<% end %>
-		<% unless @freight.comments.empty? %>
 			<li>
-	            <div class="itemLabel">Comentarios</div>
-	            <div class="itemValue"><%= @freight.comments %></div>
+	            <div class="itemLabel">Correo electr&oacute;nico</div>
+	            <div class="itemValue"><%= @freight.owner_email %></div>
 	        </li>
-		<% end %>
-    </ul>
+		</ul>
+	</div>
 	
-	<strong>Informaci&oacute;n del contacto</strong>
-	
-	<ul>
-		<li>
-            <div class="itemLabel">Nombre Completo</div>
-            <div class="itemValue"><%= @freight.owner_full_name %></div>
-        </li>
-		<% unless @freight.owner_cell_phone_number.empty? %>
-			<li>
-	            <div class="itemLabel">Celular</div>
-	            <div class="itemValue"><%= @freight.owner_cell_phone_number %></div>
+	<div id="information">
+		<ul>
+	        <li>
+	            <div class="itemLabel">Origen</div>
+	            <div class="itemValue"><%= format_city @freight.origin_name %></div>
 	        </li>
-		<% end %>
-		<li>
-            <div class="itemLabel">Tel&eacute;fono</div>
-            <div class="itemValue"><%= @freight.owner_phone %></div>
-        </li>
-		<li>
-            <div class="itemLabel">Correo electr&oacute;nico</div>
-            <div class="itemValue"><%= @freight.owner_email %></div>
-        </li>
-	</ul>
+
+			<li>
+	            <div class="itemLabel">Destino</div>
+	            <div class="itemValue"><%= format_city @freight.destination_name %></div>
+	        </li>
+
+			<li>
+	            <div class="itemLabel">Fecha de salida</div>
+	            <div class="itemValue"><%= format_date @freight.date_departure %></div>
+	        </li>
+
+			<% unless @freight.date_arrival.empty? %>
+				<li>
+		            <div class="itemLabel">Fecha de llegada</div>
+		            <div class="itemValue"><%= format_date @freight.date_arrival %></div>
+		        </li>
+			<% end %>
+
+			<li>
+	            <div class="itemLabel">Peso</div>
+	            <div class="itemValue"><%= @freight.weight %> <%= @freight.weight_unit %></div>
+	        </li>
+			<% unless @freight.price.empty? %>
+				<li>
+		            <div class="itemLabel">Precio estimado</div>
+		            <div class="itemValue"><%= @freight.price %> <%=  @freight.price_currency %></div>
+		        </li>
+			<% end %>
+			<% unless @freight.comments.empty? %>
+				<li>
+		            <div class="itemValueSpecial"><%= @freight.comments %></div>
+		        </li>
+			<% end %>
+	    </ul>
+	</div>
 
 </div>

@@ -7,9 +7,8 @@ class FreightController < Rho::RhoController
 
   #GET /Freight
   def index
-    puts "Yahaaaaaargh #{@params.inspect}"
     @msg = @params['message']
-    @no_more_freights = @params["no_more_freights"] == "true"
+    @no_more_freights = (@params["no_more_freights"] == "true")
     @search = Search.find(:first)
     @freights = Freight.find(:all)
     render

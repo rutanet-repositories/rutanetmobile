@@ -8,41 +8,38 @@
 
 
 <div id="content">
-	<form method="POST" action="<%= url_for :action => :do_search %>">
-	    <ul>
-	        <li>
-				<label for="origin" class="fieldLabel">Origen</label>	
-	        	<input type="text" name="search[origin]" <%= placeholder( "Origen" ) %> />
-	      	</li>
-			<li>
-				<label for="destination" class="fieldLabel">Destino</label>	
-	        	<input type="text" name="search[destination]" <%= placeholder( "Destino" ) %> />
-	      	</li>
-	
-			<li>
-	        	<select name="search[finish]">
-					<option>Fecha de salida</option>
-					<option value="<%= Date.today.to_s %>">Hoy</option>
-					<option value="<%= (Date.today + 1).to_s%>">Ma&ntilde;ana</option>
-					<option value="<%= (Date.today + 7).to_s %>">En esta semana</option>
-					<option value="<%= (Date.today + 30).to_s %>">En este mes</option>
-				</select>
-	      	</li>
-	
-			<li>
-	        	<select name="search[maximum_weight]">
-					<option value="120">Peso (Tn)</option>
-					<option value="1">Menos de 1</option>
-					<option value="10">Menos de 10</option>
-					<option value="20">Menos de 20</option>
-					<option value="30">Menos de 30</option>
-					<option value="40">Menos de 40</option>
-					<option value="120">Mas de 40</option>
-				</select>
-	      	</li>
-	
-			<input type="hidden" name="search[page]" value="1" />
-		</ul>
-		<input type="submit" class="standardButton" value="Buscar" />
-	</form>
+		<form method="POST" action="<%= url_for :action => :do_search %>">
+			<div id="loginbox">
+					<p>Origen:</p>
+		        	<input type="text" name="search[origin]" <%= placeholder( "Ej. Monterrey" ) %> />
+
+					<p>Destino:</p>	
+		        	<input type="text" name="search[destination]" <%= placeholder( "Ej. Guadalajara" ) %> />
+				
+					<p>Fecha de salida:</p>
+		        	<select name="search[finish]">
+						<option></option>
+						<option value="<%= Date.today.to_s %>">Hoy</option>
+						<option value="<%= (Date.today + 1).to_s%>">Ma&ntilde;ana</option>
+						<option value="<%= (Date.today + 7).to_s %>">En esta semana</option>
+						<option value="<%= (Date.today + 30).to_s %>">En este mes</option>
+					</select>
+				
+					<p>Peso:</p>
+		        	<select name="search[maximum_weight]">
+						<option value="120"></option>
+						<option value="1">Menos de 1</option>
+						<option value="10">Menos de 10</option>
+						<option value="20">Menos de 20</option>
+						<option value="30">Menos de 30</option>
+						<option value="40">Menos de 40</option>
+						<option value="120">Mas de 40</option>
+					</select>
+
+				<input type="hidden" name="search[page]" value="1" />
+				<div class="button">
+					<input type="submit" value="Buscar" name="Buscar" class="action small_btn">
+				</div>
+			</div>
+		</form>
 </div>

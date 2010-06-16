@@ -3,31 +3,150 @@
 body {
     margin: 0;
     font-family: Helvetica;
+    width: 320px;
+    height: 480px;
+    
 }
 
 h1 {
     font-size: 1.4em;
 }
 
-
+div.mainContent{
+	width: 320px;	
+}
 /* header */
 
 div#pageTitle h1 {
     position: absolute;
     text-align: center;
-    width: 100%;
+    width: 320px;
     margin: 0 auto 0 auto;
     line-height: 50px;
     color: white;
     text-shadow: 1px 1px 1px #000;
+    font-family: Arial, Helvetica;
+    font-size: 25px;
+}
+
+.icon{
+	margin-right: 5px;
+
+}
+
+.arrow{
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+
+/* Login */
+
+#loginbox {
+	background: #D9E6F3 url('../images/loginboxback.png') repeat-x ;
+	padding: 10px 20px ;
+	-webkit-border-radius: 5px;
+	margin-top: 20px;
+}
+
+#loginbox p{
+	margin: 8px 0px;
+	font-family: arial, helvetica;
+	font-size: 15px;
+	color: #00264C;
+	font-weight: bold;
+}
+
+.notice{
+	text-align: center;
+}
+
+.action{
+	background: #F8B423 url('../images/buttonback.png') repeat-x;
+	border: 2px solid #FBB824;
+	-webkit-border-radius: 5px; 
+	font-family: arial;
+	font-size: 18px;
+	font-weight: bold;
+	color:#00264C;
+	height:22px;
+	width: 241px;
+	margin-top: 25px;
+	margin-bottom: 20px;
+}
+
+.background {
+	margin: 0px;
+}
+
+.logo {
+	margin-left: 6px;
+	margin-top: 24px;
+}
+
+#contentlogin{
+	background: #F7FAFC url('../images/backiphone.png') repeat-x;
+}
+
+
+/* Buscar cargas */
+
+.option {
+	list-style-type: none;
+	margin: 0px;
+}
+
+/* Loadingscreen */
+
+.loading {
+	float:right;
+	margin-right:140px;
+	margin-top:40px;
+
+}
+
+.logoloading {
+	margin-left:35px;
+	margin-top:15px;
+}
+
+/* info "Tomates" */
+
+.label {
+	text-align: center;
+	font-family: Helvetica neue, Arial;
+	font-weight: bold;
+	color: #00264C;
+}
+
+div#content div#information {
+	 width: 300px;
+	 margin-left: auto;
+	 margin-right: auto;
+	 padding-top: 15px;
+	-webkit-border-radius: 5px;
+}
+
+div#content form input.comprarcontacto {
+	-webkit-border-radius: 5px;
+	background:#F8B423 url(../images/buttonback.png) repeat-x scroll 0 0;
+	border:2px solid #FBB824;
+	color:#00264C;
+	font-family:arial;
+	font-size:18px;
+	font-weight:bold;
+	height:35px;
+	margin-bottom:20px;
+	margin-left:15px;
+	width:270px;
 }
 
 
 /* toolbar */
 
 div#toolbar {
-    width: 100%;
-    height: 50px;
+    width: 320px;
+    height: 57px;
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #aebbcb),color-stop(0.5, #8094ae), color-stop(1.0, #6e84a2));
 }
 
@@ -40,20 +159,21 @@ div#toolbar div {
 div#toolbar div#leftItem {
     top: 10px;
     left: 10px;
-    width: 50px;
+    width: 60px;
 }
 
 div#toolbar div#centerItem {
     bottom: 20px;
-		width:100%;
+	width:100%;
     margin-left: 10px;
     height: 30px;
 }
 
 div#toolbar div#rightItem {
     top: 10px;
-    right: 10px;
-    width: 50px;
+    left: 240px;
+    /* right: 10px; ORIGINAL*/ 
+    width: 60px;
 }
 
 div#toolbar a {
@@ -65,7 +185,7 @@ div#toolbar a {
 div#toolbar .backButton {
     -webkit-border-bottom-left-radius: 16px 16px;
     -webkit-border-bottom-right-radius: 6px 6px;
-    -webkit-border-image: url(/public/images/backButton.png) 0 5 0 13 stretch stretch;
+    -webkit-border-image: url(../images/backButton.png) 0 5 0 13 stretch stretch;
     -webkit-border-top-left-radius: 16px 16px;
     -webkit-border-top-right-radius: 6px 6px;
     border-width: 0 5px 0 13px;
@@ -87,7 +207,7 @@ div#toolbar .blueButton {
     border-right: #5e7088 1px solid;
     border-top: #34404e 1px solid;
     border-bottom: #34404e 1px solid;
-		padding: 0 2px 0 2px;
+	padding: 0 2px 0 2px;
 }
 
 div#toolbar .deleteButton {
@@ -104,9 +224,11 @@ div#toolbar .blueButton {
 }
 
 div#content {
-    background: url('/public/images/pinstripes.png');
-		min-height:480px;
+    background: #F7FAFC url('../images/backiphone.png') repeat-x;
+	min-height:480px;
+	margin: 0;
 }
+
 
 div#content form button.createButton {
     position: absolute;
@@ -154,12 +276,15 @@ div#content h2.groupTitle{
 div#content ul {
     border-top: 1px solid #848284;
     background-color: white;
-	margin-bottom:50px;
+	margin-bottom:30px;
+	-webkit-border-radius: 5px;
 }
 
 div#content ul li {
     border-bottom: 1px solid #848284;
-		min-height: 40px;
+	min-height: 40px;
+	background: #FFF url('../images/backlist.png') repeat-x;
+	-webkit-border-radius: 5px;
 }
 
 div#content ul li a {
@@ -174,9 +299,6 @@ div#content ul li > span  {
     padding: 15px 0 15px 0;
 }
 
-div#content ul li a:hover {
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(5, 140, 245)), to(rgb(1, 95, 230)));
-}
 
 div#content ul li div.freight_info {
 	display:block;
@@ -202,20 +324,32 @@ div#content ul li span.subtitle {
 	margin:5px 0px;
 }
 
+
 div#content ul li div.itemLabel {
     float: left;
     width: 45%;
     padding: 15px 0 15px 10px;
+    font-weight:bold;
+    font-size:14px;
+    
 }
 
 div#content ul li div.itemValue {
     float: right;
     width: 45%;
     padding: 15px 10px 15px 0;
+    font-size: 14px;
+}
+
+div#content ul li div.itemValueSpecial {
+    float: left;
+    width: 90%;
+    padding: 15px 10px;
+    font-size: 14px;
 }
 
 div#content ul li a span.disclosure_indicator {
-    background: url('/public/images/iphone/disclosure.png') no-repeat center right;
+    background: url('../images/iphone/disclosure.png') no-repeat center right;
     height: 25px;
     width: 35px;
     float: right;
@@ -224,7 +358,7 @@ div#content ul li a span.disclosure_indicator {
 }
 
 div#content ul li a span.detail_disclosure {
-    background: url('/public/images/iphone/disclosure_detail.png') no-repeat center right;
+    background: url('../images/iphone/disclosure_detail.png') no-repeat center right;
     height: 27px;
     width: 34px;
     float: right;
@@ -232,16 +366,12 @@ div#content ul li a span.detail_disclosure {
 		display: inline;
 }
 
-div#content ul li a img {
-    float: left;
-    height: 100%;
-    max-width: 100px;
-}
+
 
 
 /* Forms */
 
-div#content form {
+div#content form,  div#contentlogin form {
    padding: 5px 0 75px 0;
 	border: none;
 	width:300px;
@@ -293,26 +423,26 @@ div#content form ul li label.fieldLabel {
 	display:none;
 }
 
-div#content form input {
+div#content form input, div#contentlogin form input {
 	-webkit-appearance: none;
-	width: 45%;
-    border: 0;
+	width: 258px;
 }
 
-div#content form input, div#content form select{
-	height:40px;
-	font-size: medium;
-	font-weight: bold;
+div#content form input, div#content form select, div#contentlogin form input{
+	font-size:16px;
+	height:30px;
 }
 
-div#content form input[type="text"], div#content form input[type="password"] {
-    width:289px;
-    background: transparent;
+
+div#content form input[type="text"], div#content form input[type="password"], div#contentlogin form input[type="text"], div#contentlogin form input[type="password"]{
+    width:240px;
+    background: #FFF;
     padding: 0 5px 0 10px;
+    -webkit-border-radius: 5px;
 }
 
 div#content form input[type="checkbox"] {
-    background: url('/public/images/iphone/switch.png') no-repeat center;
+    background: url('../images/iphone/switch.png') no-repeat center;
 		background-position-y: -27px;
     float: right;
     display:block;
@@ -337,15 +467,15 @@ div#content form input[type="radio"] {
 }
 
 div#content form input[type="radio"]:checked {
- background: url('/public/images/iphone/radiobutton.png') no-repeat;
+ background: url('../images/iphone/radiobutton.png') no-repeat;
  background-position-x: 100%;
  background-position-y: 50%;
 }
 
 div#content form select {
-  	background: url('/public/images/iphone/select.png') no-repeat right;
-    border: 0px;
+    /*border: 0px;*/
 	width:100%;
+	height: 30px;
 }
 
 div#content form textarea {
@@ -401,8 +531,28 @@ div#content div#reset h4 {
 div#wait {
 	position: absolute;
 	top: 0;
-	background: url(/public/images/loading.png) no-repeat; 
+	background: url(../images/loading.png) no-repeat; 
 	width: 100%; 
 	height: 100%; 
 	text-align: center
+}
+
+div#content form div#loginbox div.button input{
+	font-size:18px;
+	height:40px;
+}
+
+div#content form div#loginbox select{
+	background-color:#ccc;
+}
+
+div#content div#app_message{
+	width:300px;
+	height:15px;
+	color:white;
+	background-color:#222;
+	padding:8px;
+	border:2px solid #000;
+	opacity:0.6;
+	font-size:13px;
 }

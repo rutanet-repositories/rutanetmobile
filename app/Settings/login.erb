@@ -1,29 +1,23 @@
-<div id="pageTitle">
-  <h1>Rutanet</h1>
-</div>
-
-<div id="toolbar">
-	
-</div>
-
 <div id="content">
     <form method="POST" action="<%= url_for :action => :do_login %>">
+		
+		<img src="/public/images/rutalogo.png" alt="Rutanet" class="logo"/>
 
         <% if @msg %>
             <p style="color:#ff0000"><%= verbose_error_message(@msg) %></p>
         <% end %>
 
-        <ul>
-            <li>
-                <label for="login" class="fieldLabel">Correo electr&oacute;nico</label>
-                <input type="text" name="login" <%= placeholder( "Correo electr&oacute;nico" ) %> />
-            </li>
+		<div id="loginbox"><!--El contenedor del login-->
 
-            <li>
-                <label for="password" class="fieldLabel">Contrase&ntilde;a</label>
-                <input type="password" name="password" <%= placeholder( "Contrase&ntilde;a" ) %> />
-            </li>
-        </ul>
-        <input type="submit" class="standardButton" value="Entrar" />
+			<p>Correo electr&oacute;nico:</p>
+               <input type="text" name="login"  />
+			<p>Contrase&ntilde;a:</p> 
+               <input type="password" name="password"  />
+	
+			<div class="button">
+				<input type="submit" value="Entrar" name="Login" class="action small_btn">
+			</div>
+			
+		</div>		
     </form>
 </div>

@@ -4,39 +4,48 @@
 
 <div id="toolbar">
 	<div id="rightItem" class="regularButton">
-		<%= link_to "Recargar", url_for(:controller => 'MyFreight', :action => 'do_search') %>
+		<%= link_to "<img src='/public/images/reloadwhite.png'>", url_for(:controller => 'MyFreight', :action => 'do_search') %>
 	</div>
 </div>
 
 <div id="content">
 
 	<% if @msg %>
-        <p style="color:#ff0000"><%= verbose_error_message(@msg) %></p>
+        <div id='app_message'>
+			<%= verbose_error_message(@msg) %>
+		</div>
     <% end %>
 	
-	<% if @nofreights %>
-		<p>No tienes ninguna carga activa comprada</p>
+	<% if @nofreights == 'true' %>
+		<div id="information">
+			<ul>
+				<li>
+					<div class='itemValueSpecial'>No tienes ninguna carga activa comprada</div>
+				</li>
+			</ul>
+		</div>
 	<% end %>
 
-	<ul>
-		<% unless @freights.nil? %>
-        <% @freights.each do |freight| %>
-	       <li>
-	           <a href="<%= url_for :action => :show, :id => freight.object %>">
-				<div class='freight_info'>
-					 <span class="title">
-						<%= format_city freight.origin_name.capitalize %> -> <%= format_city freight.destination_name.capitalize %>
-					</span>
-					<span class="subtitle">
-						<strong><%= format_date freight.date_departure %></strong> &nbsp;
-						<%= freight.category.capitalize %> &nbsp; 
-						<%= freight.weight %> <%= freight.weight_unit %> 
-					</span>
-				</div>
-				<span class="disclosure_indicator"></span>
-	           </a>
-	       </li>
-        <% end %>
-		<% end %>
-    </ul>
+	<% unless @freights.nil? %>
+		<ul>
+	        <% @freights.each do |freight| %>
+		       <li>
+		           <a href="<%= url_for :action => :show, :id => freight.object %>">
+					<div class='freight_info'>
+						 <span class="title">
+							<%= format_city freight.origin_name.capitalize %> <img src="/public/images/arrow.png"/ border="none" class="arrow"> <%= format_city freight.destination_name.capitalize %>
+						</span>
+						<span class="subtitle">
+							<img src="/public/images/calendario.png"/ border="none" class="icon">
+							<strong><%= format_date freight.date_departure %></strong> &nbsp;
+							<img src="/public/images/pesas.png"/ border="none" class="icon"><%= freight.weight %> <%= freight.weight_unit %>  &nbsp; 
+							<%= freight.category.capitalize %>
+						</span>
+					</div>
+					<span class="disclosure_indicator"></span>
+		           </a>
+		       </li>
+	        <% end %>
+	    </ul>
+	<% end %>
 </div>

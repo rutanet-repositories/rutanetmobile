@@ -17,7 +17,3 @@ LogCategories = *
 ExcludeLogCategories =
 KeepTrackOfLastVisitedPage = 0 
 LastVisitedPage = ''
-
-# Sync server url. Typically this will look like 'http://<hostname>:<port>/application'
-# For example: 'http://localhost:9292/application'
-syncserver = ''
