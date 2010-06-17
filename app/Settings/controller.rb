@@ -39,7 +39,7 @@ class SettingsController < Rho::RhoController
   def do_login
     if @params['login'] and @params['password']
       Rho::AsyncHttp.post(
-        :url => 'http://rutanet.local/signin/signin.json',
+        :url => 'http://rutanet.com/signin/signin.json',
         :body => "email=#{@params['login']}&password=#{@params['password']}",
         :callback => '/app/Settings/login_callback')
       render :action => :wait

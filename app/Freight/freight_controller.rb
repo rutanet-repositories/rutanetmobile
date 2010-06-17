@@ -47,8 +47,8 @@ class FreightController < Rho::RhoController
       end
     end
     Rho::AsyncHttp.post(
-      :url => 'http://rutanet.local/search_freights.json',
-      :body => "search_freight[origin]=#{search.origin}&search_freight[destination]=#{search.destination}&search_freight[finish]=#{search.finish}&search_freight[maximum_weight]=#{search.maximum_weight}&search_freight[weight_unit]=Tn&page=#{search.page}&per_page=5",
+      :url => 'http://rutanet.com/search_freights.json',
+      :body => "search_freight[origin]=#{search.origin}&search_freight[destination]=#{search.destination}&search_freight[finish]=#{search.finish}&search_freight[maximum_weight]=#{search.maximum_weight}&search_freight[weight_unit]=Tn&page=#{search.page}&per_page=10",
       :headers => {'Cookie' => User.find(:first).cookie },
       :callback => "/app/Freight/search_callback#{do_not_destroy}")
     if do_not_destroy.empty?
@@ -79,7 +79,7 @@ class FreightController < Rho::RhoController
   
   def buy_contact
     Rho::AsyncHttp.post(
-      :url => "http://rutanet.local/freights/#{@params['offer_id']}/tickets.json",
+      :url => "http://rutanet.com/freights/#{@params['offer_id']}/tickets.json",
       :headers => {'Cookie' => User.find(:first).cookie },
       :callback => '/app/Freight/buy_contact_callback')
     render :action => :wait
