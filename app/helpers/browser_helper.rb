@@ -41,4 +41,9 @@ module BrowserHelper
   def checked(option_value,object_value)
     "checked=\"yes\"" if option_value == object_value
   end
+  
+  def truncate(string,length)
+    return string if string.length < length
+    return "#{string[0,length]}..."
+  end
 end

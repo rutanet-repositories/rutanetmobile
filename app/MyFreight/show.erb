@@ -1,5 +1,5 @@
 <div id="pageTitle">
-	<h1><%= @freight.category.capitalize %></h1>
+	<h1>Contacto</h1>
 </div>
 
 <div id="toolbar">
@@ -39,6 +39,9 @@
 	
 	<div id="information">
 		<ul>
+			<li>
+	            <div class="itemValueSpecial"><em><%= @freight.category.capitalize %></em></div>
+	        </li>
 	        <li>
 	            <div class="itemLabel">Origen</div>
 	            <div class="itemValue"><%= format_city @freight.origin_name %></div>

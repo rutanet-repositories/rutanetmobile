@@ -5,6 +5,7 @@ body {
     font-family: Helvetica;
     width: 320px;
     height: 480px;
+	background-color:#0e3b72;
     
 }
 
@@ -224,7 +225,7 @@ div#toolbar .blueButton {
 }
 
 div#content {
-    background: #F7FAFC url('../images/backiphone.png') repeat-x;
+    background: #F7FAFC url('../images/backiphone.png') repeat;
 	min-height:480px;
 	margin: 0;
 }
