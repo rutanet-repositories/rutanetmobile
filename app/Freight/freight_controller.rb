@@ -7,10 +7,10 @@ class FreightController < Rho::RhoController
 
   #GET /Freight
   def index
-    @msg = @params['message']
+    @msg = @params['message'] || ''
     @no_more_freights = (@params["no_more_freights"] == "true")
     @search = Search.find(:first)
-    @freights = Freight.find(:all)
+    @freights = Freight.find(:all).sort_by{|f| f.object.gsub(/[{}]/,"") }.reverse
     render
   end
 
@@ -43,18 +43,18 @@ class FreightController < Rho::RhoController
       if @params["page"]
         search.page = @params["page"] 
         search.save
-        do_not_destroy = "?do_not_destroy=true"
+        do_not_destroy = "?do_not_destroy=true&msg=freightsloaded"
       end
     end
     Rho::AsyncHttp.post(
-      :url => 'http://rutanet.com/search_freights.json',
+      :url => "http://#{application_url}/search_freights.json",
       :body => "search_freight[origin]=#{search.origin}&search_freight[destination]=#{search.destination}&search_freight[finish]=#{search.finish}&search_freight[maximum_weight]=#{search.maximum_weight}&search_freight[weight_unit]=Tn&page=#{search.page}&per_page=10",
       :headers => {'Cookie' => User.find(:first).cookie },
       :callback => "/app/Freight/search_callback#{do_not_destroy}")
     if do_not_destroy.empty?
       render :action => :wait 
     else
-      @msg = @params['message']
+      @msg = ''
       @search = Search.find(:first)
       @freights = Freight.find(:all)
       render :action => :index
@@ -70,16 +70,16 @@ class FreightController < Rho::RhoController
         freight = Freight.new(attributes)
         freight.save
       end
-      WebView.navigate(url_for :controller => :Freight, :action => :index, :query =>{:no_more_freights => no_more_freights} )
+      WebView.navigate(url_for :controller => :Freight, :action => :index, :query =>{:no_more_freights => no_more_freights, :message => @params['msg']} )
     else
       error_message = error_messages(@params['http_error'])
-      WebView.navigate ( url_for :action => :index, :query => {:message => error_message} )
+      WebView.navigate ( url_for :action => :index, :query => {:message => error_message})
     end
   end
   
   def buy_contact
     Rho::AsyncHttp.post(
-      :url => "http://rutanet.com/freights/#{@params['offer_id']}/tickets.json",
+      :url => "http://#{application_url}/freights/#{@params['offer_id']}/tickets.json",
       :headers => {'Cookie' => User.find(:first).cookie },
       :callback => '/app/Freight/buy_contact_callback')
     render :action => :wait

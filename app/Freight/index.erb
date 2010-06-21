@@ -11,7 +11,7 @@
 
 <div id="content">
 
-	<% if @msg %>
+	<% unless @msg.empty? %>
         <div id='app_message'>
 			<%= verbose_error_message(@msg) %>
 		</div>
@@ -36,13 +36,15 @@
 	           </a>
 	       </li>
         <% end %>
+
 		<% unless @no_more_freights %>
 			<li>
 				   <a href="<%= url_for :action => :do_search, :query => {:page => (@search.page.to_i + 1)} %>">
 					<div class='freight_info'  id='more_freights'>
 						 <span class="title">
-							M&aacute;s cargas...
+							M&aacute;s cargas
 						</span>
+						<span style='font-size:20px;font-weight:bold;'>...</span>
 					</div>
 		           </a>
 			</li>

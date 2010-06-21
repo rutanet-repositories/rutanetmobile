@@ -1,5 +1,9 @@
 module BrowserHelper
   
+  def application_url
+    User.find(:first).email == "test@rutanet.com" ? "stagingrutanet.heroku.com" : "rutanet.com"
+  end
+  
   def error_messages(code)
     return case code
       when '401' then 'wronglogin'
@@ -11,6 +15,7 @@ module BrowserHelper
   def verbose_error_message(msg)
     return 'Tus datos de acceso son inv&aacute;lidos' if msg == 'wronglogin'
     return 'No tienes permitida esta acci&oacute;n en Rutanet' if msg == 'restrictedaccess'
+    return 'Se agregaron cargas al listado' if msg == 'freightsloaded'
     return 'La conecci&oacute;n con Rutanet ha fallado'
   end
   

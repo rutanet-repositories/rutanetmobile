@@ -40,7 +40,7 @@ class MyFreightController < Rho::RhoController
   
   def do_search
     Rho::AsyncHttp.get(
-      :url => 'http://rutanet.com/tickets.json',
+      :url => "http://#{application_url}/tickets.json",
       :headers => {'Cookie' => User.find(:first).cookie },
       :callback => '/app/MyFreight/search_callback')
     render :action => :wait

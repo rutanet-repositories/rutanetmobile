@@ -557,3 +557,9 @@ div#content div#app_message{
 	opacity:0.6;
 	font-size:13px;
 }
+
+div#more_freights{
+	text-align:center;
+	font-size:16px;
+	margin-top:-10px;
+}

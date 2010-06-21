@@ -27,6 +27,7 @@ class SettingsController < Rho::RhoController
       current_user = User.find(:first) || User.new
       current_user.cookie = @params["cookies"]
       current_user.id = @params["body"]["id"]
+      current_user.email = @params["body"]["email"]
       current_user.save
       NativeBar.create(AppApplication::TOOLBAR_TYPE, AppApplication::TABS)
       WebView.navigate (url_for(:controller => :Freight, :action => :search))
@@ -38,10 +39,17 @@ class SettingsController < Rho::RhoController
 
   def do_login
     if @params['login'] and @params['password']
-      Rho::AsyncHttp.post(
-        :url => 'http://rutanet.com/signin/signin.json',
-        :body => "email=#{@params['login']}&password=#{@params['password']}",
-        :callback => '/app/Settings/login_callback')
+      unless @params['login'] == 'test@rutanet.com'
+        Rho::AsyncHttp.post(
+          :url => "http://rutanet.com/signin/signin.json",
+          :body => "email=#{@params['login']}&password=#{@params['password']}",
+          :callback => '/app/Settings/login_callback')
+      else
+        Rho::AsyncHttp.post(
+          :url => "http://stagingrutanet.heroku.com/signin/signin.json",
+          :body => "email=#{@params['login']}&password=#{@params['password']}",
+          :callback => '/app/Settings/login_callback')
+      end
       render :action => :wait
     else
       @msg = 'wronglogin'
@@ -51,6 +59,8 @@ class SettingsController < Rho::RhoController
   
   def logout
     current_user = User.find(:first)
+    Freight.delete_all
+    MyFreight.delete_all
     current_user.destroy unless current_user.nil?
     @msg = false
     NativeBar.remove
@@ -73,4 +83,5 @@ class SettingsController < Rho::RhoController
     @msg =  "Sync has been triggered."
     redirect :action => :index, :query => {:msg => @msg}
   end
+  
 end
