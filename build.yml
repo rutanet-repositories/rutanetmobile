@@ -10,7 +10,7 @@ applog: rholog.txt
 iphone:
   configuration: Debug
   sdk: iphonesimulator3.0
-  provisionprofile:
-  codesignidentity:
+  provisionprofile: BAB777EC-1213-4FF1-AC2B-0DDF4027A709
+  codesignidentity: "iPhone Developer: Federico Gonzalez (TFGDBWF93W)"
   entitlements:
 extensions: ["extension-name-here", "second-extension-name"]
