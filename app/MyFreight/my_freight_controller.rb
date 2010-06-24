@@ -1,6 +1,5 @@
 require 'rho/rhocontroller'
 require 'helpers/browser_helper'
-require 'Date'
 
 class MyFreightController < Rho::RhoController
   include BrowserHelper
@@ -17,7 +16,7 @@ class MyFreightController < Rho::RhoController
       @freights = MyFreight.find(:all)
       @nofreights = @params['nofreights']
       if @freights.empty? and !@nofreights
-        WebView.navigate(url_for(:controller => :MyFreight, :action => :do_search))
+        WebView.navigate(url_for(:controller => :MyFreight, :action => :do_search), WebView.active_tab )
       else
         render
       end
@@ -43,7 +42,7 @@ class MyFreightController < Rho::RhoController
       :url => "http://#{application_url}/tickets.json",
       :headers => {'Cookie' => User.find(:first).cookie },
       :callback => '/app/MyFreight/search_callback')
-    render :action => :wait
+    WebView.navigate(url_for(:controller => :Settings, :action => 'wait'), 1)
   end
   
   def search_callback
@@ -54,11 +53,12 @@ class MyFreightController < Rho::RhoController
         freight = MyFreight.new(attributes)
         freight.save
       end
-      WebView.navigate (url_for :controller => :MyFreight, :action => :index, 
-                                                            :query => {:nofreights => MyFreight.find(:all).empty?})
+      WebView.navigate((url_for :controller => :MyFreight, 
+                                :action => :index, 
+                                :query => {:nofreights => MyFreight.find(:all).empty?}), 1)
     else
       error_message = error_messages(@params['http_error'])
-      WebView.navigate ( url_for :action => :index, :query => {:message => error_message} )
+      WebView.navigate((url_for :action => :index, :query => {:message => error_message}), 1)
     end
   end
 

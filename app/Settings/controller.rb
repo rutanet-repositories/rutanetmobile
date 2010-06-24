@@ -29,7 +29,7 @@ class SettingsController < Rho::RhoController
       current_user.id = @params["body"]["id"]
       current_user.email = @params["body"]["email"]
       current_user.save
-      NativeBar.create(AppApplication::TOOLBAR_TYPE, AppApplication::TABS)
+      NativeBar.create(AppApplication::TABBAR_TYPE, AppApplication::TABS)
       WebView.navigate (url_for(:controller => :Freight, :action => :search))
     else
       error_message = error_messages(@params['http_error'])
@@ -82,6 +82,10 @@ class SettingsController < Rho::RhoController
     SyncEngine.dosync
     @msg =  "Sync has been triggered."
     redirect :action => :index, :query => {:msg => @msg}
+  end
+  
+  def wait
+    render
   end
   
 end

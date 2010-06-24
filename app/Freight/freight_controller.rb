@@ -1,6 +1,6 @@
 require 'rho/rhocontroller'
 require 'helpers/browser_helper'
-#require 'Date'
+require 'date'
 
 class FreightController < Rho::RhoController
   include BrowserHelper
@@ -52,7 +52,7 @@ class FreightController < Rho::RhoController
       :headers => {'Cookie' => User.find(:first).cookie },
       :callback => "/app/Freight/search_callback#{do_not_destroy}")
     if do_not_destroy.empty?
-      render :action => :wait 
+      WebView.navigate(url_for(:controller => :Settings, :action => 'wait'), 0)
     else
       @msg = ''
       @search = Search.find(:first)
@@ -82,7 +82,7 @@ class FreightController < Rho::RhoController
       :url => "http://#{application_url}/freights/#{@params['offer_id']}/tickets.json",
       :headers => {'Cookie' => User.find(:first).cookie },
       :callback => '/app/Freight/buy_contact_callback')
-    render :action => :wait
+    WebView.navigate(url_for(:controller => :Settings, :action => 'wait'), 0)
   end
   
   def buy_contact_callback
@@ -90,11 +90,12 @@ class FreightController < Rho::RhoController
     if errCode == 0
       bought_freight = MyFreight.new(@params['body'])
       bought_freight.save if MyFreight.find(:all, :conditions => {:id => bought_freight.id}).empty?
-      WebView.navigate url_for(:controller => :MyFreight, :action => :index, 
-                                                          :query => {:just_bought =>true})
+      WebView.navigate(url_for(:controller => :MyFreight, :action => :index, 
+                                                          :query => {:just_bought =>true}), 1)
+      NativeBar.switch_tab(1)
     else
       error_message = error_messages(@params['http_error'])
-      WebView.navigate ( url_for :action => :index, :query => {:message => error_message} )
+      WebView.navigate( url_for :action => :index, :query => {:message => error_message} )
     end
   end
 end

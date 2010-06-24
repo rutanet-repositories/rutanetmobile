@@ -3,18 +3,16 @@ require 'rho/rhoapplication'
 class AppApplication < Rho::RhoApplication
   
   
-  TABS = [  { :action => '/app/Freight/search',:icon => "/public/images/searchwhite.png"},
-            { :action => :separator}, 
-            { :action => '/app/MyFreight', :icon => "/public/images/truckwhite.png"},
-            { :action => :separator},
-            {:action => '/app/Settings/logout',       :icon => "/public/images/logoutwhite.png"}]
+  TABS = [  { :label => "Buscar", :action => '/app/Freight/search',:icon => "/public/images/search.png"},
+            { :label => "Mis cargas",:action => '/app/MyFreight', :icon => "/public/images/truck.png"},
+            { :label => "Salir",:action => '/app/Settings/logout', :icon => "/public/images/logout.png"}]
    
   def initialize
     # Tab items are loaded left->right, @tabs[0] is leftmost tab in the tab-bar
     @@toolbar = nil
     @@tabbar = nil
     unless User.find(:first).nil?
-     @@toolbar = TABS
+     @tabs = TABS
     end
     super
   end

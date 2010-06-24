@@ -15,9 +15,16 @@
 
 					<p>Destino:</p>	
 		        	<input type="text" name="search[destination]" <%= placeholder( "Ej. Guadalajara" ) %> />
-				
+					
 					<p>Fecha de salida:</p>
-				
+			        	<select name="search[finish]">
+							<option></option>
+							<option value="<%= Date.today.to_s %>">Hoy</option>
+							<option value="<%= (Date.today + 1).to_s%>">Ma&ntilde;ana</option>
+							<option value="<%= (Date.today + 7).to_s %>">En esta semana</option>
+							<option value="<%= (Date.today + 30).to_s %>">En este mes</option>
+						</select>
+													
 					<p>Peso:</p>
 		        	<select name="search[maximum_weight]">
 						<option value="120"></option>

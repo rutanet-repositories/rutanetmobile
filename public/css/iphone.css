@@ -86,7 +86,7 @@ div#pageTitle h1 {
 }
 
 #contentlogin{
-	background: #F7FAFC url('../images/backiphone.png') repeat-x;
+	background: -webkit-gradient(linear, left top, left bottom, from(#001E4E), to(#195b9a));
 }
 
 
@@ -119,6 +119,7 @@ div#pageTitle h1 {
 	font-weight: bold;
 	color: #00264C;
 }
+
 
 div#content div#information {
 	 width: 300px;
@@ -225,7 +226,13 @@ div#toolbar .blueButton {
 }
 
 div#content {
-    background: #F7FAFC url('../images/backiphone.png') repeat;
+    background: -webkit-gradient(linear, left top, left bottom, from(#001E4E), to(#195b9a));
+	min-height:480px;
+	margin: 0;
+}
+
+div#content_special {
+    background-color: #fff;
 	min-height:480px;
 	margin: 0;
 }

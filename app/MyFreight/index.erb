@@ -4,7 +4,7 @@
 
 <div id="toolbar">
 	<div id="rightItem" class="regularButton">
-		<%= link_to "<img src='/public/images/reloadwhite.png'>", url_for(:controller => 'MyFreight', :action => 'do_search') %>
+		<%= link_to "<img src='/public/images/reloadwhite.png' style='margin-top:3px;'>", url_for(:controller => 'MyFreight', :action => 'do_search') %>
 	</div>
 </div>
 
@@ -33,12 +33,12 @@
 		           <a href="<%= url_for :action => :show, :id => freight.object %>">
 					<div class='freight_info'>
 						 <span class="title">
-							<%= format_city freight.origin_name.capitalize %> <img src="/public/images/arrow.png"/ border="none" class="arrow"> <%= format_city freight.destination_name.capitalize %>
+							<%= format_city freight.origin_name.capitalize %> <img src="/public/images/arrow.gif"/ border="none" class="arrow"> <%= format_city freight.destination_name.capitalize %>
 						</span>
 						<span class="subtitle">
-							<img src="/public/images/calendario.png"/ border="none" class="icon">
+							<img src="/public/images/calendario.gif"/ border="none" class="icon">
 							<strong><%= format_date freight.date_departure %></strong> &nbsp;
-							<img src="/public/images/pesas.png"/ border="none" class="icon"><%= freight.weight %> <%= freight.weight_unit %>  &nbsp; 
+							<img src="/public/images/pesas.gif"/ border="none" class="icon"><%= freight.weight %> <%= freight.weight_unit %>  &nbsp; 
 							<%= freight.category.capitalize %>
 						</span>
 					</div>
